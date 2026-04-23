@@ -1,66 +1,63 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import homePageImage  from '../assets/Home_page.png'
-import section_2_1   from '../assets/section_2_1.png'
-import section_2_2   from '../assets/section_2_2.png'
+import Badge from '../components/Badge'
+import homePageImage from '../assets/Home_page.png'
+import section_2_1 from "../assets/section_2_1.png"
+import section_2_2 from "../assets/section_2_2.png"
+
+
 import {
-  ArrowRight, BookOpen, Shield, Globe, Users,
-  GraduationCap, Brain, FlaskConical, Palette,
-  Star, ChevronDown,
+  ArrowRight, ChevronDown, BookOpen, Shield, Globe, Users,
+  Sparkles, GraduationCap, Award, Star, Play,
+  Brain, FlaskConical, Palette
 } from 'lucide-react'
 
+/* ─── Scroll Reveal Hook ─── */
 function useReveal() {
   const ref = useRef()
   useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) e.target.classList.add('visible')
-      }),
-      { threshold: 0.12 }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add('visible')
+        })
+      },
+      { threshold: 0.15 }
     )
     const el = ref.current
-    if (el) el.querySelectorAll('.reveal').forEach((item) => io.observe(item))
-    return () => io.disconnect()
+    if (el) {
+      el.querySelectorAll('.reveal').forEach((item) => observer.observe(item))
+    }
+    return () => observer.disconnect()
   }, [])
   return ref
 }
 
 /* ─── DATA ─── */
-const serviceCards = [
-  {
-    icon: GraduationCap,
-    title: 'Graduation',
-    desc: 'The Heritage School was established in 2001 and is recognised for academic distinction.',
-  },
-  {
-    icon: Users,
-    title: 'University Life',
-    desc: 'The Heritage School was established in 2001 and is recognised for holistic growth.',
-  },
-  {
-    icon: BookOpen,
-    title: 'Education Services',
-    desc: 'The Heritage School was established in 2001 and is recognised for global curriculum.',
-  },
+const quickInfo = [
+  { icon: BookOpen, color: 'bg-blue-100 text-blue-600', title: 'Admissions Open', sub: '2025–26 batch enrollment active' },
+  { icon: Users, color: 'bg-emerald-100 text-emerald-600', title: 'Small Batch Sizes', sub: 'Max 30 students per class' },
+  { icon: Shield, color: 'bg-amber-100 text-amber-600', title: 'Safe Campus', sub: 'CCTV & trained security 24/7' },
+  { icon: Globe, color: 'bg-purple-100 text-purple-600', title: 'Global Curriculum', sub: 'Cambridge & CBSE affiliated' },
 ]
 
 const courses = [
-  { icon: Brain,       title: 'Computer Science & AI',   grade: 'Grade 11–12', desc: 'Build intelligent systems with Python, ML, and robotics.',         color: '#2563eb' },
-  { icon: FlaskConical, title: 'Mathematics & Sciences', grade: 'Grade 9–12',  desc: 'Master calculus, physics, and advanced chemistry.',                color: '#16a34a' },
-  { icon: Palette,     title: 'Humanities & Arts',        grade: 'Grade 6–12', desc: 'Explore literature, history, and creative expression.',            color: '#9333ea' },
-]
-
-const stats = [
-  { number: '3+',   label: 'Years of Language Education Experience', icon: Globe },
-  { number: '99+',  label: 'Innovative Foreign Online Courses',       icon: BookOpen },
-  { number: '10+',  label: 'Qualified Teachers and Language Experts', icon: Users },
-  { number: '11+',  label: 'Learners Enrolled in Heritage Courses',   icon: GraduationCap },
+  { icon: Brain, title: 'Computer Science & AI', grade: 'Grade 11–12', desc: 'Build intelligent systems with Python, ML, and robotics.', color: '#3b82f6' },
+  { icon: FlaskConical, title: 'Mathematics & Sciences', grade: 'Grade 9–12', desc: 'Master calculus, physics, and advanced chemistry.', color: '#f59e0b' },
+  { icon: Palette, title: 'Humanities & Arts', grade: 'Grade 6–12', desc: 'Explore literature, history, and creative expression.', color: '#8b5cf6' },
 ]
 
 const testimonials = [
-  { name: 'Priya Sharma',   role: 'Parent, Grade 10', quote: 'The Heritage School transformed my daughter\'s approach to learning. The faculty genuinely care about each student\'s growth.',       stars: 5 },
-  { name: 'Rohan Mehta',    role: 'Alumni, Batch 2022', quote: 'The mentorship and exposure I received gave me the confidence to pursue my dream at IIT Bombay.',                                   stars: 5, featured: true },
-  { name: 'Dr. Sunita Rao', role: 'Parent, Grade 7',  quote: 'A truly holistic institution. My son excels not just academically but in sports and arts too.',                                        stars: 5 },
+  { name: 'Priya Sharma', role: 'Parent, Grade 10', quote: 'The Heritage School transformed my daughter\'s approach to learning. The faculty genuinely care about each student\'s growth.', stars: 5 },
+  { name: 'Rohan Mehta', role: 'Alumni, Batch 2022', quote: 'The mentorship and exposure I received at The Heritage School gave me the confidence to pursue my dream at IIT Bombay.', stars: 5, dark: true },
+  { name: 'Dr. Sunita Rao', role: 'Parent, Grade 7', quote: 'A truly holistic institution. My son excels not just academically but in sports and arts too.', stars: 5 },
+]
+
+const stats = [
+  { number: '5000+', label: 'Students Enrolled', gold: false },
+  { number: '98%', label: 'Placement Rate', gold: true },
+  { number: '150+', label: 'Expert Faculty', gold: false },
+  { number: '47', label: 'National Awards', gold: true },
 ]
 
 const Home = () => {
@@ -68,149 +65,180 @@ const Home = () => {
 
   return (
     <div ref={containerRef}>
-
       {/* ════════════════════ HERO ════════════════════ */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Hero background image */}
         <img
           src={homePageImage}
-          alt="The Heritage School campus"
+          alt="School campus background"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/72 via-black/45 to-black/20" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-36 w-full">
-          <p className="text-white/70 text-xs font-semibold tracking-[0.22em] uppercase mb-5">
-            The Heritage School
-          </p>
-          <h1 className="font-bold text-4xl md:text-6xl lg:text-[4.2rem] text-white leading-[1.1] mb-6 max-w-2xl word-reveal">
-            <span className="block">Together We'll</span>
-            <span className="block">Explore New Things</span>
-          </h1>
-          <p className="text-white/80 text-base md:text-lg max-w-lg leading-relaxed mb-9">
-            We believe everyone should have the opportunity to create progress through knowledge, character, and academic excellence.
-          </p>
-          <Link to="/courses" className="btn-gold text-sm">
-            Find Courses
-          </Link>
-        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-32 grid lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT */}
+          <div className="max-w-2xl">
+            <Badge className="mb-5">✨ Admissions Open 2025–26</Badge>
 
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 scroll-indicator">
-          <ChevronDown className="w-5 h-5 text-white/40" />
-        </div>
-      </section>
+            <h1 className="font-playfair text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.02] tracking-tight mb-5 word-reveal drop-shadow-[0_6px_26px_rgba(0,0,0,0.65)]">
+              <span className="block">Where</span>
+              <span className="gradient-text block">Brilliance</span>
+              <span className="block">Meets Purpose</span>
+            </h1>
 
-      {/* ════════════════════ SERVICE CARDS STRIP ════════════════════ */}
-      <section className="bg-white relative z-10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-0 border border-gray-200 rounded-2xl shadow-xl -mt-10 overflow-hidden">
-            {serviceCards.map((s, i) => (
-              <div
-                key={i}
-                className={`reveal flex flex-col gap-4 p-8 bg-white transition-all duration-300 hover:bg-blue-50 group ${
-                  i < serviceCards.length - 1 ? 'border-b md:border-b-0 md:border-r border-gray-200' : ''
-                }`}
-              >
-                <div className="w-12 h-12 rounded-xl bg-blue-50 group-hover:bg-white flex items-center justify-center transition-colors">
-                  <s.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 text-base mb-1.5">{s.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
-                </div>
-                <Link to="/about" className="inline-flex items-center gap-1.5 text-primary text-sm font-semibold mt-auto hover:gap-2.5 transition-all">
-                  Learn More <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            ))}
+            <p className="text-white/95 text-base md:text-xl max-w-xl leading-relaxed mb-8 font-normal drop-shadow-[0_2px_12px_rgba(0,0,0,0.55)]">
+              A premier institution nurturing future leaders through innovation,
+              character, and academic excellence since 1998.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link to="/courses" className="btn-gold flex items-center gap-2 text-base">
+                Explore Courses <ArrowRight className="w-4 h-4" />
+              </Link>
+              <button className="btn-ghost flex items-center gap-2 text-base">
+                <Play className="w-4 h-4" /> Watch Story
+              </button>
+            </div>
           </div>
+
+          {/* RIGHT — Stats card */}
+          {/* <div className="hidden lg:flex justify-end relative">
+            <div className="glass rounded-3xl p-8 w-full max-w-md">
+              <h3 className="font-playfair text-white text-xl font-bold mb-6">Why The Heritage School?</h3>
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  { num: '25+', label: 'Years Legacy', icon: Award },
+                  { num: '98%', label: 'Placements', icon: Sparkles },
+                  { num: '150+', label: 'Faculty', icon: Users },
+                  { num: '5K+', label: 'Alumni Network', icon: GraduationCap },
+                ].map((s, i) => (
+                  <div key={i} className="text-center">
+                    <s.icon className="w-8 h-8 text-gold mx-auto mb-2" />
+                    <p className="text-2xl font-playfair font-bold text-white">{s.num}</p>
+                    <p className="text-white/50 text-xs font-mono uppercase tracking-wider">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Floating mini card */}
+            <div className="absolute -bottom-4 -left-6 glass rounded-2xl px-5 py-3 flex items-center gap-3 animate-float">
+              <div className="pulse-dot" />
+              <div>
+                <p className="text-white text-sm font-semibold">New Enrollment</p>
+                <p className="text-white/50 text-xs">12 students joined today</p>
+              </div>
+            </div>
+          {/* </div> */} 
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator">
+          <ChevronDown className="w-6 h-6 text-white/40" />
         </div>
       </section>
 
       {/* ════════════════════ ABOUT TEASER ════════════════════ */}
-      <section className="py-24 bg-white">
+      <section className="bg-cream py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left — image mosaic */}
+          {/* Left — images */}
           <div className="relative reveal">
-            {/* Decorative circle */}
-            <div className="absolute -left-8 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-2 border-dashed border-green-300 opacity-60 pointer-events-none" />
-            <div className="absolute -left-4 top-1/2 -translate-y-1/2 w-52 h-52 rounded-full border border-pink-300 opacity-40 pointer-events-none" />
-
-            <div className="grid grid-cols-2 gap-4 relative z-10">
-              <div className="rounded-2xl overflow-hidden shadow-md col-span-1">
-                <img src={section_2_1} alt="Students" className="w-full h-56 object-cover" />
-              </div>
-              <div className="rounded-2xl overflow-hidden shadow-md col-span-1 mt-8">
-                <img src={section_2_2} alt="Campus" className="w-full h-56 object-cover" />
-              </div>
+            <div className="rounded-3xl overflow-hidden shadow-2xl w-[70%]">
+              <img
+                src={section_2_1}
+                alt="Students collaborating in classroom"
+                className="w-full h-72 object-cover"
+              />
+            </div>
+            <div className="absolute top-16 right-0 rounded-3xl overflow-hidden shadow-2xl w-[55%] border-4 border-cream">
+              <img
+                src={section_2_2}
+                alt="Campus aerial view"
+                className="w-full h-60 object-cover"
+              />
+            </div>
+            <div className="absolute -bottom-4 left-8 glass bg-white/90 backdrop-blur-md rounded-2xl px-5 py-3 shadow-xl animate-float">
+              <p className="text-3xl font-playfair font-black text-navy">25+</p>
+              <p className="text-navy/60 text-xs font-mono uppercase tracking-wider">Years of Excellence</p>
             </div>
           </div>
 
           {/* Right — text */}
           <div className="reveal">
-            <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">About Heritage</p>
-            <h2 className="font-bold text-3xl md:text-4xl text-gray-900 leading-[1.15] mb-5">
-              Degrees in Various Academic Disciplines
+            <Badge>Our Story</Badge>
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-navy mt-4 mb-6">
+              A Legacy of Nurturing Futures
             </h2>
-            <p className="text-gray-500 text-base leading-relaxed mb-6">
-              The Heritage School, established in 2001, is a unique endeavour of the Kalyan Bharti Trust. Nestled in the lap of nature, the school provides an ideal atmosphere for learners to acquire and imbibe skills necessary for their physical, mental, social and intellectual development.
+            <p className="text-navy/60 text-lg leading-relaxed mb-6">
+             
+The Heritage School, established in 2001, is a unique endeavour of the Kalyan Bharti Trust to recreate the ancient Gurukul tradition of India. Nestled in the lap of nature, the school provides an ideal atmosphere for learners to acquire and imbibe skills necessary for their physical, mental, social and intellectual development.
             </p>
             <ul className="space-y-3 mb-8">
-              {['Access to all our courses', 'Learn the latest skills', 'Upskill your organisation'].map((item, i) => (
-                <li key={i} className="flex items-center gap-3 text-gray-600 text-sm">
-                  <svg className="w-4 h-4 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+              {[ 'State-of-the-art laboratories', 'Award-winning sports program', '100% college acceptance rate'].map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-navy/70">
+                  <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
+                    <svg className="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
                   {item}
                 </li>
               ))}
             </ul>
-            <Link to="/about" className="btn-gold">
-              Read More
+            <Link to="/about" className="btn-navy inline-flex items-center gap-2">
+              Read Our Story <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ════════════════════ STATS ════════════════════ */}
-      <section className="py-16 bg-gray-50 border-y border-gray-200">
+      {/* ════════════════════ QUICK INFO BAR ════════════════════ */}
+      <section className="bg-cream pb-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((s, i) => (
-              <div key={i} className="reveal flex flex-col items-center text-center gap-3 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
-                  <s.icon className="w-6 h-6 text-primary" />
+          <div className="relative bg-navy-deep rounded-3xl overflow-hidden shadow-2xl">
+            <div className="h-1.5 bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+              {quickInfo.map((item, i) => (
+                <div key={i} className="reveal flex items-center gap-4 px-5 py-6 md:px-6 md:py-7">
+                  <div className="w-11 h-11 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center shrink-0">
+                    <item.icon className="w-5 h-5 text-gold-light" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white text-sm leading-tight">{item.title}</p>
+                    <p className="text-white/55 text-xs">{item.sub}</p>
+                  </div>
                 </div>
-                <p className="text-3xl font-extrabold text-gray-900">{s.number}</p>
-                <p className="text-gray-500 text-xs leading-snug">{s.label}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════ COURSES TEASER ════════════════════ */}
-      <section className="py-24 bg-white">
+      <section className="bg-cream py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14 reveal">
-            <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Curriculum</p>
-            <h2 className="font-bold text-3xl md:text-4xl text-gray-900 mb-4">Programs That Inspire</h2>
-            <p className="text-gray-500 text-base max-w-2xl mx-auto">
+            <Badge>Curriculum</Badge>
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-navy mt-4 mb-4">
+              Programs That Inspire
+            </h2>
+            <p className="text-navy/50 text-lg max-w-2xl mx-auto">
               Our carefully designed curriculum balances academic excellence with practical skills and creative thinking.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-7">
+          <div className="grid md:grid-cols-3 gap-8">
             {courses.map((course, i) => (
-              <div key={i} className="bg-white rounded-2xl border border-gray-200 shadow-sm card-hover reveal overflow-hidden">
+              <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-md card-hover reveal">
                 <div className="h-1" style={{ backgroundColor: course.color }} />
                 <div className="p-7">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ backgroundColor: course.color + '15' }}>
-                    <course.icon className="w-6 h-6" style={{ color: course.color }} />
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ backgroundColor: course.color + '15' }}>
+                    <course.icon className="w-7 h-7" style={{ color: course.color }} />
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">{course.grade}</p>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">{course.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-5">{course.desc}</p>
-                  <Link to="/courses" className="text-sm font-semibold inline-flex items-center gap-1.5 hover:gap-2.5 transition-all" style={{ color: course.color }}>
+                  <p className="text-xs font-mono uppercase tracking-wider text-navy/40 mb-2">{course.grade}</p>
+                  <h3 className="font-playfair text-xl font-bold text-navy mb-3">{course.title}</h3>
+                  <p className="text-navy/50 text-sm leading-relaxed mb-5">{course.desc}</p>
+                  <Link to="/courses" className="text-sm font-semibold inline-flex items-center gap-1 hover:gap-2 transition-all" style={{ color: course.color }}>
                     Enroll <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -219,39 +247,65 @@ const Home = () => {
           </div>
 
           <div className="text-center mt-12 reveal">
-            <Link to="/courses" className="btn-outline">
-              View All Courses <ArrowRight className="w-4 h-4" />
+            <Link
+              to="/courses"
+              className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl border-2 border-navy/20 text-navy font-semibold hover:bg-navy hover:text-white transition-all duration-300"
+            >
+              View All 12 Courses <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
+      {/* ════════════════════ STATS BAR ════════════════════ */}
+      <section className="bg-navy-deep py-16">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((s, i) => (
+              <div key={i} className="reveal">
+                <p className={`text-5xl md:text-6xl font-playfair font-black mb-2 ${s.gold ? 'gradient-text' : 'text-white'}`}>
+                  {s.number}
+                </p>
+                <p className="text-white/40 text-sm font-mono uppercase tracking-wider">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ════════════════════ TESTIMONIALS ════════════════════ */}
-      <section className="py-24 bg-gray-50 border-y border-gray-200">
+      <section className="bg-cream py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-14 reveal">
-            <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Testimonials</p>
-            <h2 className="font-bold text-3xl md:text-4xl text-gray-900">Voices of Our Community</h2>
+            <Badge>Testimonials</Badge>
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-navy mt-4 mb-4">
+              Voices of Our Community
+            </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-7">
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((t, i) => (
-              <div key={i} className={`rounded-2xl p-7 card-hover reveal ${t.featured ? 'bg-primary text-white shadow-lg' : 'bg-white border border-gray-200 shadow-sm'}`}>
-                <div className="flex gap-0.5 mb-4">
+              <div
+                key={i}
+                className={`rounded-3xl p-8 card-hover reveal ${
+                  t.dark ? 'bg-navy text-white' : 'bg-white shadow-md'
+                }`}
+              >
+                <div className="flex gap-1 mb-4">
                   {[...Array(t.stars)].map((_, j) => (
-                    <Star key={j} className={`w-4 h-4 fill-current ${t.featured ? 'text-yellow-300' : 'text-yellow-400'}`} />
+                    <Star key={j} className="w-4 h-4 fill-gold text-gold" />
                   ))}
                 </div>
-                <p className={`text-sm leading-relaxed mb-6 italic ${t.featured ? 'text-white/85' : 'text-gray-500'}`}>
+                <p className={`italic leading-relaxed mb-6 ${t.dark ? 'text-white/80' : 'text-navy/60'}`}>
                   "{t.quote}"
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${t.featured ? 'bg-white/20 text-white' : 'bg-blue-100 text-primary'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center font-playfair font-bold text-sm ${t.dark ? 'bg-gold/20 text-gold' : 'bg-navy/10 text-navy'}`}>
                     {t.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <p className={`font-semibold text-sm ${t.featured ? 'text-white' : 'text-gray-900'}`}>{t.name}</p>
-                    <p className={`text-xs ${t.featured ? 'text-white/60' : 'text-gray-400'}`}>{t.role}</p>
+                    <p className={`font-semibold text-sm ${t.dark ? 'text-white' : 'text-navy'}`}>{t.name}</p>
+                    <p className={`text-xs ${t.dark ? 'text-white/50' : 'text-navy/40'}`}>{t.role}</p>
                   </div>
                 </div>
               </div>
@@ -260,26 +314,34 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ════════════════════ CTA ════════════════════ */}
-      <section className="py-20 bg-primary">
-        <div className="max-w-3xl mx-auto text-center px-6">
-          <h2 className="font-bold text-3xl md:text-4xl text-white mb-5 reveal">
-            Ready to Begin Your Journey?
-          </h2>
-          <p className="text-white/75 text-base mb-10 reveal">
-            Join a community that believes in every student's potential. Applications for 2025–26 are now open.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 reveal">
-            <Link to="/contact" className="btn-ghost">
-              Apply Now <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link to="/contact" className="bg-white text-primary font-semibold text-sm px-6 py-2.5 rounded-md hover:bg-blue-50 transition-colors inline-flex items-center gap-2">
-              Schedule a Visit
-            </Link>
+      {/* ════════════════════ CTA SECTION ════════════════════ */}
+      <section className="bg-cream pb-24">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="relative rounded-4xl bg-navy-deep overflow-hidden shadow-2xl">
+            <div className="h-1.5 bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400" />
+            <div className="absolute top-10 right-10 w-72 h-72 border border-white/5 rounded-full" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 border border-white/5 rounded-full -translate-x-1/2 translate-y-1/2" />
+
+            <div className="relative z-10 max-w-3xl mx-auto text-center px-6 py-20">
+              <h2 className="font-playfair text-4xl md:text-5xl font-black text-white mb-6 reveal">
+                Ready to Begin Your Journey?
+              </h2>
+              <p className="text-white/65 text-lg mb-10 reveal">
+                Join a community that believes in every student's potential.
+                Applications for 2025–26 are now open.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4 reveal">
+                <Link to="/contact" className="btn-gold text-base flex items-center gap-2">
+                  Apply Now <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/contact" className="btn-ghost text-base">
+                  Schedule a Visit
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
     </div>
   )
 }

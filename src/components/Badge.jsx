@@ -1,7 +1,11 @@
-const Badge = ({ children, className = '' }) => (
-  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-widest uppercase bg-blue-50 text-blue-600 border border-blue-100 ${className}`}>
-    {children}
-  </span>
-)
+const Badge = ({ children, className = '' }) => {
+  return (
+    <span
+      className={`inline-block px-4 py-1.5 rounded-full text-xs font-mono tracking-[0.15em] uppercase font-bold bg-blue-100 text-blue-700 ${className}`}
+    >
+      {children}
+    </span>
+  )
+}
 
 export default Badge

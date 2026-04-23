@@ -97,34 +97,49 @@ const Faculty = () => {
   return (
     <div ref={containerRef}>
       {/* ════════════════════ HERO ════════════════════ */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-white pt-36 pb-20 overflow-hidden border-b border-gray-200">
-        <div className="absolute inset-0 page-hero-soft-grid pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="reveal">
-            <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-4">Our Team</p>
-            <h1 className="font-bold text-4xl md:text-5xl text-gray-900 mb-5 leading-[1.1]">Meet Our Faculty</h1>
-            <p className="text-gray-500 text-lg max-w-xl leading-relaxed">Passionate educators dedicated to inspiring the next generation of thinkers and leaders.</p>
+      <section className="relative page-hero-soft py-28 overflow-hidden border-b border-navy/10">
+        <div className="absolute inset-0 page-hero-soft-grid" />
+        <div className="absolute top-12 left-[8%] w-4 h-4 bg-[#ff3d5a] rounded-sm" />
+        <div className="absolute top-12 right-[14%] text-navy/35 text-3xl tracking-widest">~~~</div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <Badge className="mb-6">Our Team</Badge>
+            <h1 className="font-playfair text-5xl md:text-6xl font-black text-navy mb-6 leading-[1.05]">
+              Meet Our Faculty
+            </h1>
+            <p className="text-navy/60 text-lg max-w-xl">
+              Passionate educators dedicated to inspiring the next generation of thinkers and leaders.
+            </p>
           </div>
-          <div className="relative hidden lg:flex justify-center reveal">
-            <div className="absolute top-10 right-4 w-56 h-56 rounded-full border-[10px] border-blue-100" />
-            <img src="/images/page-hero-person.png" alt="Student visual" className="relative z-10 w-[340px] h-[300px] object-contain" />
-            <div className="absolute left-0 bottom-8 bg-white rounded-2xl shadow-lg border border-gray-200 px-5 py-4">
-              <p className="text-2xl font-extrabold text-gray-900">150+</p>
-              <p className="text-xs text-gray-400 mt-0.5">Expert Faculty Members</p>
+
+          <div className="relative hidden lg:flex justify-center">
+            <div className="absolute top-14 right-6 w-52 h-52 rounded-full border-[10px] border-gold/20" />
+            <img
+              src="/images/page-hero-person.png"
+              alt="Student visual"
+              className="relative z-10 w-[360px] h-[320px] object-contain"
+            />
+            <div className="absolute left-2 bottom-10 bg-white/95 rounded-2xl shadow-xl border border-navy/10 px-5 py-4">
+              <p className="text-2xl font-black text-navy">100K+</p>
+              <p className="text-xs text-navy/50">Total Enrolled Students</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════ FACULTY GRID ════════════════════ */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {facultyData.map((f, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200 card-hover reveal group">
-                <div className={`relative h-44 bg-gradient-to-br ${f.gradient} flex items-center justify-center overflow-hidden`}>
-                  <span className="font-bold text-6xl text-white/25">{f.initials}</span>
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/8 transition-colors" />
+              <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-md card-hover reveal group">
+                {/* Gradient Image Area */}
+                <div className={`relative h-48 bg-gradient-to-br ${f.gradient} flex items-center justify-center overflow-hidden group-hover:scale-[1.03] transition-transform duration-500`}>
+                  <span className="font-playfair text-6xl font-black text-white/20">
+                    {f.initials}
+                  </span>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                 </div>
 
                 {/* Info */}

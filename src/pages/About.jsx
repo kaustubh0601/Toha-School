@@ -50,44 +50,59 @@ const About = () => {
   return (
     <div ref={containerRef}>
       {/* ════════════════════ HERO ════════════════════ */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-white pt-36 pb-20 overflow-hidden border-b border-gray-200">
-        <div className="absolute inset-0 page-hero-soft-grid pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <section className="relative page-hero-soft py-28 overflow-hidden border-b border-navy/10">
+        <div className="absolute inset-0 page-hero-soft-grid" />
+        <div className="absolute top-12 left-[8%] w-4 h-4 bg-[#ff3d5a] rounded-sm" />
+        <div className="absolute top-12 right-[14%] text-navy/35 text-3xl tracking-widest">~~~</div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
           <div className="reveal">
-            <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-4">About Us</p>
-            <h1 className="font-bold text-4xl md:text-5xl text-gray-900 mb-5 leading-[1.1]">
+            <Badge className="mb-6 reveal">About Us</Badge>
+            <h1 className="font-playfair text-5xl md:text-6xl font-black text-navy mb-6 leading-[1.05] reveal">
               About The Heritage School
             </h1>
-            <p className="text-gray-500 text-lg max-w-xl leading-relaxed">
+            <p className="text-navy/60 text-lg max-w-xl reveal">
               A quarter-century of shaping minds, building character, and creating global citizens.
             </p>
           </div>
+
           <div className="relative hidden lg:flex justify-center reveal">
-            <div className="absolute top-10 right-4 w-56 h-56 rounded-full border-[10px] border-blue-100" />
-            <img src="/images/page-hero-person.png" alt="Student visual" className="relative z-10 w-[340px] h-[300px] object-contain" />
-            <div className="absolute left-0 bottom-8 bg-white rounded-2xl shadow-lg border border-gray-200 px-5 py-4">
-              <p className="text-2xl font-extrabold text-gray-900">5000+</p>
-              <p className="text-xs text-gray-400 mt-0.5">Total Enrolled Students</p>
+            <div className="absolute top-14 right-6 w-52 h-52 rounded-full border-[10px] border-gold/20" />
+            <img
+              src="/images/page-hero-person.png"
+              alt="Student visual"
+              className="relative z-10 w-[360px] h-[320px] object-contain"
+            />
+            <div className="absolute left-2 bottom-10 bg-white/95 rounded-2xl shadow-xl border border-navy/10 px-5 py-4">
+              <p className="text-2xl font-black text-navy">100K+</p>
+              <p className="text-xs text-navy/50">Total Enrolled Students</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════ MISSION / VISION / VALUES ════════════════════ */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12 reveal">
-            <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-3">Our Foundation</p>
-            <h2 className="font-bold text-3xl md:text-4xl text-gray-900">Mission, Vision & Values</h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {mvv.map((item, i) => (
-              <div key={i} className={`rounded-2xl p-8 card-hover reveal border ${item.dark ? 'bg-primary border-primary text-white' : 'bg-white border-gray-200 shadow-sm'}`}>
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${item.dark ? 'bg-white/15' : 'bg-blue-50'}`}>
-                  <item.icon className={`w-6 h-6 ${item.dark ? 'text-white' : 'text-primary'}`} />
+              <div
+                key={i}
+                className={`rounded-3xl p-8 card-hover reveal ${
+                  item.dark ? 'bg-navy text-white' : 'bg-white shadow-md'
+                }`}
+              >
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${
+                  item.dark ? 'bg-gold/20' : 'bg-navy/5'
+                }`}>
+                  <item.icon className={`w-7 h-7 ${item.dark ? 'text-gold' : 'text-navy'}`} />
                 </div>
-                <h3 className={`font-bold text-xl mb-3 ${item.dark ? 'text-white' : 'text-gray-900'}`}>{item.title}</h3>
-                <p className={`text-sm leading-relaxed ${item.dark ? 'text-white/75' : 'text-gray-500'}`}>{item.desc}</p>
+                <h3 className={`font-playfair text-2xl font-bold mb-4 ${item.dark ? '' : 'text-navy'}`}>
+                  {item.title}
+                </h3>
+                <p className={`leading-relaxed ${item.dark ? 'text-white/70' : 'text-navy/60'}`}>
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -95,11 +110,13 @@ const About = () => {
       </section>
 
       {/* ════════════════════ HISTORY TIMELINE ════════════════════ */}
-      <section className="py-20 bg-gray-50 border-y border-gray-200">
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-14 reveal">
-            <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-3">Our Journey</p>
-            <h2 className="font-bold text-3xl md:text-4xl text-gray-900">Milestones That Define Us</h2>
+          <div className="text-center mb-16 reveal">
+            <Badge>Our Journey</Badge>
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-navy mt-4">
+              Milestones That Define Us
+            </h2>
           </div>
 
           <div className="relative">
@@ -111,18 +128,18 @@ const About = () => {
                 i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}>
                 {/* Year circle */}
-                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-primary flex items-center justify-center z-10 shadow-md">
-                  <span className="text-white text-xs font-bold">{item.year}</span>
+                <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-16 h-16 rounded-full bg-navy flex items-center justify-center z-10 shadow-lg">
+                  <span className="text-gold text-xs font-mono font-bold">{item.year}</span>
                 </div>
 
                 {/* Card */}
-                <div className={`ml-20 md:ml-0 md:w-[45%] ${i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                  <div className="bg-white rounded-2xl p-6 shadow-sm card-hover border border-gray-200">
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-primary mb-3">
+                <div className={`ml-24 md:ml-0 md:w-[45%] ${i % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
+                  <div className="bg-white rounded-3xl p-6 shadow-md card-hover border border-gray-100">
+                    <span className="inline-block px-3 py-1 rounded-full text-xs font-mono bg-navy/5 text-navy/60 mb-3">
                       {item.date}
                     </span>
-                    <h3 className="font-bold text-lg text-gray-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                    <h3 className="font-playfair text-xl font-bold text-navy mb-2">{item.title}</h3>
+                    <p className="text-navy/50 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </div>
@@ -132,22 +149,24 @@ const About = () => {
       </section>
 
       {/* ════════════════════ FACILITIES GRID ════════════════════ */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12 reveal">
-            <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-3">Campus</p>
-            <h2 className="font-bold text-3xl md:text-4xl text-gray-900 mb-4">World-Class Facilities</h2>
-            <p className="text-gray-500 text-base max-w-2xl mx-auto">
+          <div className="text-center mb-14 reveal">
+            <Badge>Campus</Badge>
+            <h2 className="font-playfair text-4xl md:text-5xl font-black text-navy mt-4 mb-4">
+              World-Class Facilities
+            </h2>
+            <p className="text-navy/50 text-lg max-w-2xl mx-auto">
               Our 15-acre campus is equipped with everything students need to learn, grow, and excel.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {facilities.map((f, i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl p-6 text-center card-hover border border-gray-200 reveal">
-                <span className="text-3xl mb-3 block">{f.icon}</span>
-                <h3 className="font-semibold text-gray-900 text-sm mb-1">{f.name}</h3>
-                <p className="text-gray-400 text-xs">{f.detail}</p>
+              <div key={i} className="bg-white rounded-3xl p-6 text-center card-hover shadow-sm reveal">
+                <span className="text-4xl mb-4 block">{f.icon}</span>
+                <h3 className="font-playfair font-bold text-navy text-lg mb-1">{f.name}</h3>
+                <p className="text-navy/40 text-sm font-mono">{f.detail}</p>
               </div>
             ))}
           </div>

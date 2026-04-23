@@ -69,27 +69,39 @@ const Gallery = () => {
   return (
     <div ref={containerRef}>
       {/* ════════════════════ HERO ════════════════════ */}
-      <section className="relative bg-gradient-to-br from-blue-50 to-white pt-36 pb-20 overflow-hidden border-b border-gray-200">
-        <div className="absolute inset-0 page-hero-soft-grid pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
-          <div className="reveal">
-            <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-4">Campus Life</p>
-            <h1 className="font-bold text-4xl md:text-5xl text-gray-900 mb-5 leading-[1.1]">Life at The Heritage School</h1>
-            <p className="text-gray-500 text-lg max-w-xl leading-relaxed">Moments that capture the spirit, energy, and joy of our vibrant school community.</p>
+      <section className="relative page-hero-soft py-28 overflow-hidden border-b border-navy/10">
+        <div className="absolute inset-0 page-hero-soft-grid" />
+        <div className="absolute top-12 left-[8%] w-4 h-4 bg-[#ff3d5a] rounded-sm" />
+        <div className="absolute top-12 right-[14%] text-navy/35 text-3xl tracking-widest">~~~</div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <Badge className="mb-6">Campus Life</Badge>
+            <h1 className="font-playfair text-5xl md:text-6xl font-black text-navy mb-6 leading-[1.05]">
+              Life at The Heritage School
+            </h1>
+            <p className="text-navy/60 text-lg max-w-xl">
+              Moments that capture the spirit, energy, and joy of our vibrant school community.
+            </p>
           </div>
-          <div className="relative hidden lg:flex justify-center reveal">
-            <div className="absolute top-10 right-4 w-56 h-56 rounded-full border-[10px] border-blue-100" />
-            <img src="/images/page-hero-person.png" alt="Student visual" className="relative z-10 w-[340px] h-[300px] object-contain" />
-            <div className="absolute left-0 bottom-8 bg-white rounded-2xl shadow-lg border border-gray-200 px-5 py-4">
-              <p className="text-2xl font-extrabold text-gray-900">5000+</p>
-              <p className="text-xs text-gray-400 mt-0.5">Students in Our Community</p>
+
+          <div className="relative hidden lg:flex justify-center">
+            <div className="absolute top-14 right-6 w-52 h-52 rounded-full border-[10px] border-gold/20" />
+            <img
+              src="/images/page-hero-person.png"
+              alt="Student visual"
+              className="relative z-10 w-[360px] h-[320px] object-contain"
+            />
+            <div className="absolute left-2 bottom-10 bg-white/95 rounded-2xl shadow-xl border border-navy/10 px-5 py-4">
+              <p className="text-2xl font-black text-navy">100K+</p>
+              <p className="text-xs text-navy/50">Total Enrolled Students</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════ GALLERY GRID ════════════════════ */}
-      <section className="py-20 bg-white">
+      <section className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           {/* Category Pills */}
           <div className="flex flex-wrap justify-center gap-3 mb-14 reveal">
